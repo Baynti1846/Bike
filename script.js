@@ -6,7 +6,7 @@ async function getProducts(){
 }
 function getCardHTML(product){
     let productData = JSON.stringify(product)
-    console.log("jhkj")
+    
     return `
     <div class="product">
     <img src="img/${product.image}" alt="">
@@ -24,9 +24,46 @@ function getCardHTML(product){
 function buyItem() {
     
 }
+// getProducts().then(function(products){
+//     console.log("hj")
+//     let productsList = document.querySelector('.products')
+//     if (productsList){
+//         products.forEach(product =>  {
+//             productsList.innerHTML += getCardHTML(product)
+//         });
+//     }
+//     let buyButtons = document.querySelectorAll('.buy')
+//     if ( buyButtons){
+//         buyButtons.forEach(button =>{
+//             button.addEventListener('click', buyItem)
+//         })
+//     }
+// })
+
 getProducts().then(function(products){
     console.log("hj")
     let productsList = document.querySelector('.products')
+    if (productsList){
+        for (let i = 0; i < 2; i++) {
+            const product = products[i];
+            productsList.innerHTML += getCardHTML(product)
+        }
+    }
+    let buyButtons = document.querySelectorAll('.buy')
+    if ( buyButtons){
+        buyButtons.forEach(button =>{
+            button.addEventListener('click', buyItem)
+        })
+    }
+})
+
+let moreBtn = document.querySelector('.more')
+moreBtn.addEventListener('click', ()=>{
+    
+     getProducts().then(function(products){
+    
+    let productsList = document.querySelector('.products')
+    productsList.innerHTML = ''
     if (productsList){
         products.forEach(product =>  {
             productsList.innerHTML += getCardHTML(product)
@@ -38,5 +75,6 @@ getProducts().then(function(products){
             button.addEventListener('click', buyItem)
         })
     }
+    moreBtn.style.display = 'none'
 })
-
+})
